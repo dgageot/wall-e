@@ -1,0 +1,18 @@
+version: '3.2'
+
+services:
+  wall-e:
+    build: .
+    image: dgageot/wall-e
+    ports:
+      - "9999:8080"
+    env_file: ${HOME}/secrets/jenkins.env
+    secrets:
+     - jenkins_token
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+secrets:
+  jenkins_token:
+    file: ${HOME}/secrets/jenkins.token
