@@ -9,7 +9,7 @@ RUN apk add --update ca-certificates
 
 ENV JENKINS_SERVER ""
 ENV JENKINS_USER ""
+EXPOSE 8080 8888
 
 ENTRYPOINT ["/wall-e"]
-CMD ["8080"]
 COPY --from=builder /go/app /wall-e

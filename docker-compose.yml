@@ -1,14 +1,19 @@
 version: '3.2'
 
 services:
-  wall-e:
+  web:
+    build: web
+    image: dgageot/wall-e-web
+    volumes: ["./web/static:/usr/share/nginx/html"]
+    ports: ["80:80"]
+
+  proxies:
     build: .
     image: dgageot/wall-e
-    ports:
-      - "9999:8080"
     env_file: ${HOME}/secrets/jenkins.env
     secrets:
      - jenkins_token
+     - github_token
     deploy:
       restart_policy:
         condition: on-failure
@@ -16,3 +21,5 @@ services:
 secrets:
   jenkins_token:
     file: ${HOME}/secrets/jenkins.token
+  github_token:
+    file: ${HOME}/secrets/github.wall-e.token

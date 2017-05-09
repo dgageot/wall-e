@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wall">
+<head>
+  <meta charset="utf-8">
+  <title>Build Wall</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body ng-controller="BuildWallCtrl">
+  <div id="master">
+    <div id="mac-master" class="master" ng-class="macMaster.result">
+      <img class="logo" src="images/mac.png" />
+
+      <div class="builds">
+        <div class="build" ng-style="{'height': (200-$index*20) + 'px', 'width': (200-$index*20) + 'px', 'line-height': (200-$index*20) + 'px'}" ng-class="build.result" ng-repeat="build in macMaster.builds">
+          {{build.ok.length}}/{{build.runs.length}}
+        </div>
+      </div>
+    </div>
+
+    <div id="win-master" class="master" ng-class="winMaster.result">
+      <img class="logo" src="images/win.png" />
+
+      <div class="builds">
+        <div class="build" ng-style="{'height': (200-$index*20) + 'px', 'width': (200-$index*20) + 'px', 'line-height': (200-$index*20) + 'px'}" ng-class="build.result" ng-repeat="build in winMaster.builds">
+          {{build.ok.length}}/{{build.runs.length}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="prs">
+    <div class="pr" ng-class="pr.status.state" ng-repeat="pr in pulls">
+      <h2>{{pr.title}} #{{pr.number}}</h2>
+      <img ng-src="https://github.com/{{pr.user.login}}.png" class="avatar" />
+
+      <div class="checks">
+        <div class="check" ng-class="check.state" ng-repeat="check in pr.status.statuses">
+          <img class="os" ng-if="check.context.startsWith('mac-')" src="images/mac.png" />
+          <img class="os" ng-if="check.context.startsWith('win-')" src="images/win.png" />
+          <img class="os" ng-if="check.context.indexOf('appveyor') >= 0" src="images/circleci.png" />
+          <img class="os" ng-if="check.context.indexOf('circleci') >= 0" src="images/appveyor.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+</html>

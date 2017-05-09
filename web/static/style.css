@@ -1,0 +1,197 @@
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	font-family: 'Helvetica', 'Arial', sans-serif;
+	color: rgba(255, 2255, 255, .7);
+	display: flex;
+	flex-direction: row;
+}
+
+#master {
+	display: flex;
+	flex-direction: column;
+	flex: 1 auto;
+	width: 50%;
+}
+
+#prs {
+	display: flex;
+	flex-direction: column;
+	flex: 1 auto;
+	width: 50%;
+}
+
+#mac-master {
+	flex: 1 auto;
+	border-top: 6px solid black;
+	border-left: 6px solid black;
+	border-right: 3px solid black;
+	border-bottom: 3px solid black;
+	border-radius: 10px;
+}
+
+#win-master {
+	flex: 1 auto;
+	border-right: 3px solid black;
+	border-bottom: 6px solid black;
+	border-top: 3px solid black;
+	border-left: 6px solid black;
+	border-radius: 10px;
+}
+
+.pr {
+	position: relative;
+	flex: 1 auto;
+	border-radius: 10px;
+	border-top: 3px solid black;
+	border-right: 6px solid black;
+	border-bottom: 3px solid black;
+	border-left: 3px solid black;
+}
+
+#prs .pr:first-child {
+	border-top: 6px solid black;
+}
+
+#prs .pr:last-child {
+	border-bottom: 6px solid black;
+}
+
+h1 {
+	margin: 0;
+}
+
+.logo {
+	margin-top: 50px;
+	width: 150px;
+	height: 150px;
+	opacity: .3;
+}
+
+h1 {
+	position: absolute;
+	width: 100%;
+	line-height: 300px;
+	font-size: 3em;
+	vertical-align: middle;
+}
+
+h2 {
+	margin: 10px 10px 0 10px;
+	font-size: 1.8em;
+}
+
+.master {
+	position: relative;
+}
+
+.builds {
+	position: absolute;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	height: 210px;
+	white-space: nowrap;
+	margin: 0 0 30px 0;
+	overflow: hidden;
+}
+
+.build {
+	display: inline-block;
+	width: 200px;
+	height: 200px;
+	border: rgb(205, 100, 0) solid;
+	border-width: 3px !important;
+	background-color: rgb(235, 130, 0);
+	margin-right: 10px;
+	border-radius: 100px;
+	box-shadow: -1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+	line-height: 200px;
+	vertical-align: middle;
+	font-size: 3em;
+}
+
+.SUCCESS, .success {
+	background-color: rgb(0, 100, 0);
+}
+
+.FAILURE, .failure {
+	background-color: rgb(159, 0, 0);
+}
+
+.UNKNOWN, .pending {
+	background-color: rgb(235, 130, 0);
+}
+
+.ABORTED {
+	background-color: gray;
+}
+
+.checks {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	display: block;
+	width: 100%;
+	height: 43px;
+	text-align: left;
+	overflow: hidden;
+}
+
+.check {
+	position: relative;
+	flex: 1 auto;
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	margin-right: 5px;
+	border-radius: 20px;
+	box-shadow: -1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+}
+
+.check.success, .build.SUCCESS {
+	border: rgb(0, 50, 0) solid 1px;
+	background-color: rgb(0, 80, 0);
+}
+
+.check.failure, .build.FAILURE {
+	border: rgb(80, 0, 0) solid 1px;
+	background-color: rgb(129, 0, 0);
+}
+
+.check.pending, .build.UNKNOWN {
+	border: rgb(205, 100, 0) solid 1px;
+	background-color: rgb(235, 130, 0);
+}
+
+.pr h2 {
+	margin-right: 105px;
+	text-align: left;
+}
+
+.os {
+	top: 8px;
+	left: 8px;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	opacity: .3;
+}
+
+.avatar {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	box-shadow: -1px 1px 3px 1px rgba(0, 0, 0, 0.2);
+}
