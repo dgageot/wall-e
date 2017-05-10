@@ -7,8 +7,8 @@ lab.controller('BuildWallCtrl', ($scope, $http, $interval, $q) => {
       var deferred = $q.defer();
       var urlCalls = [];
 
-      $http.get('/github/repos/docker/pinata/pulls').success(data => {
-        data.forEach(pr => urlCalls.push($http.get(statusesUrl(pr))));
+      $http.get('/proxy/pulls').success(data => {
+        data.forEach(pr => urlCalls.push($http.get("/proxy/status/" + pr.head.sha)));
 
         $q.all(urlCalls).then(results => {
           for (var i = 0; i < results.length; i++) {
@@ -18,7 +18,7 @@ lab.controller('BuildWallCtrl', ($scope, $http, $interval, $q) => {
         });
       });
 
-      $http.get('/jenkins/api/json?tree=jobs[name,builds[building,number,result,runs[building,number,result]]{0,5}]').success(function(data) {
+      $http.get('/proxy/jobs').success(function(data) {
         $scope.macMaster = jobPlus(data.jobs.find(job => job.name == 'pinata-macos-master'));
         $scope.winMaster = jobPlus(data.jobs.find(job => job.name == 'pinata-win-master'));
       });
@@ -42,8 +42,4 @@ var jobPlus = job => {
     return build;
   });
   return job;
-}
-
-var statusesUrl = pr => {
-  return pr.statuses_url.replace('https://api.github.com', '/github').replace('/statuses', '/status');
 }

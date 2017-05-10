@@ -9,31 +9,31 @@ import (
 	"./github"
 	"./jenkins"
 	"./proxy"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	go func() {
-		if err := startJenkinsProxy(); err != nil {
-			log.Fatal(err)
-		}
-	}()
-
-	if err := startGithubProxy(); err != nil {
+	if err := startProxy(); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func startJenkinsProxy() error {
+func startProxy() error {
 	server := os.Getenv("JENKINS_SERVER")
 	user := os.Getenv("JENKINS_USER")
-	token, err := ioutil.ReadFile("/run/secrets/jenkins_token")
+	tokenJenkins, err := ioutil.ReadFile("/run/secrets/jenkins_token")
 	if err != nil {
 		return err
 	}
 
-	h := http.NewServeMux()
-	h.HandleFunc("/api/", func(rw http.ResponseWriter, r *http.Request) {
-		res, err := jenkins.Get(user, string(token), server, r.RequestURI)
+	tokenGithub, err := ioutil.ReadFile("/run/secrets/github_token")
+	if err != nil {
+		return err
+	}
+
+	r := mux.NewRouter()
+	r.HandleFunc("/jobs", func(rw http.ResponseWriter, r *http.Request) {
+		res, err := jenkins.Get(user, string(tokenJenkins), server, "/api/json?tree=jobs[name,builds[building,number,result,runs[building,number,result]]{0,5}]")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
 			return
@@ -42,18 +42,8 @@ func startJenkinsProxy() error {
 		proxy.CopyResponse(rw, res)
 	})
 
-	return http.ListenAndServe(":8080", h)
-}
-
-func startGithubProxy() error {
-	token, err := ioutil.ReadFile("/run/secrets/github_token")
-	if err != nil {
-		return err
-	}
-
-	h := http.NewServeMux()
-	h.HandleFunc("/", func(rw http.ResponseWriter, r *http.Request) {
-		res, err := github.Get(string(token), r.RequestURI)
+	r.HandleFunc("/pulls", func(rw http.ResponseWriter, r *http.Request) {
+		res, err := github.Get(string(tokenGithub), "/repos/docker/pinata/pulls")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
 			return
@@ -62,5 +52,17 @@ func startGithubProxy() error {
 		proxy.CopyResponse(rw, res)
 	})
 
-	return http.ListenAndServe(":8888", h)
+	r.HandleFunc("/status/{sha1}", func(rw http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+
+		res, err := github.Get(string(tokenGithub), "/repos/docker/pinata/commits/"+vars["sha1"]+"/status")
+		if err != nil {
+			http.Error(rw, err.Error(), 500)
+			return
+		}
+
+		proxy.CopyResponse(rw, res)
+	})
+
+	return http.ListenAndServe(":8080", r)
 }
