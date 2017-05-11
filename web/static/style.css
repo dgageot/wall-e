@@ -111,7 +111,7 @@ h1 {
 	width: 200px;
 	height: 200px;
 	border: rgb(205, 100, 0) solid;
-	border-width: 3px !important;
+	border-width: 2px !important;
 	background-color: rgb(235, 130, 0);
 	margin-right: 10px;
 	border-radius: 100px;
@@ -119,22 +119,6 @@ h1 {
 	line-height: 200px;
 	vertical-align: middle;
 	font-size: 3em;
-}
-
-.SUCCESS, .success {
-	background-color: rgb(0, 100, 0);
-}
-
-.FAILURE, .failure {
-	background-color: rgb(159, 0, 0);
-}
-
-.UNKNOWN, .pending {
-	background-color: rgb(235, 130, 0);
-}
-
-.ABORTED {
-	background-color: gray;
 }
 
 .checks {
@@ -172,6 +156,18 @@ h1 {
 	color: white;
 }
 
+.SUCCESS, .success {
+	background-color: rgb(0, 100, 0);
+}
+
+.FAILURE, .failure {
+	background-color: rgb(159, 0, 0);
+}
+
+.UNKNOWN, .pending {
+	background-color: rgb(235, 130, 0);
+}
+
 .check.success, .build.SUCCESS {
 	border: rgb(0, 50, 0) solid 1px;
 	background-color: rgb(0, 80, 0);
@@ -185,6 +181,11 @@ h1 {
 .check.pending, .build.UNKNOWN {
 	border: rgb(205, 100, 0) solid 1px;
 	background-color: rgb(235, 130, 0);
+}
+
+.build.ABORTED {
+	border: rgb(100, 100, 100) solid 1px;
+	background-color: rgb(130, 130, 130);
 }
 
 .os {
