@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"./github"
 	"./jenkins"
@@ -33,7 +34,7 @@ func startProxy() error {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/jobs", func(rw http.ResponseWriter, r *http.Request) {
-		res, err := jenkins.Get(user, string(tokenJenkins), server, "/api/json?tree=jobs[name,builds[building,displayName,number,result,runs[building,fullDisplayName,number,result]]{0,5}]")
+		res, err := jenkins.Get(user, strings.TrimSpace(string(tokenJenkins)), server, "/api/json?tree=jobs[name,builds[building,displayName,number,result,runs[building,fullDisplayName,number,result]]{0,5}]")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
 			return
@@ -43,7 +44,7 @@ func startProxy() error {
 	})
 
 	r.HandleFunc("/pulls", func(rw http.ResponseWriter, r *http.Request) {
-		res, err := github.Get(string(tokenGithub), "/repos/docker/pinata/pulls")
+		res, err := github.Get(strings.TrimSpace(string(tokenGithub)), "/repos/docker/pinata/pulls")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
 			return
