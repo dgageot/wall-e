@@ -36,6 +36,7 @@ func startProxy() error {
 		res, err := jenkins.Get(user, string(tokenJenkins), server, "/api/json?tree=jobs[name,builds[building,number,result,runs[building,number,result]]{0,5}]")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
+			log.Print(err)
 			return
 		}
 
@@ -46,6 +47,7 @@ func startProxy() error {
 		res, err := github.Get(string(tokenGithub), "/repos/docker/pinata/pulls")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
+			log.Print(err)
 			return
 		}
 
@@ -58,6 +60,7 @@ func startProxy() error {
 		res, err := github.Get(string(tokenGithub), "/repos/docker/pinata/commits/"+vars["sha1"]+"/status")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
+			log.Print(err)
 			return
 		}
 
