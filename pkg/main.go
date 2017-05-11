@@ -33,7 +33,7 @@ func startProxy() error {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/jobs", func(rw http.ResponseWriter, r *http.Request) {
-		res, err := jenkins.Get(user, string(tokenJenkins), server, "/api/json?tree=jobs[name,builds[building,number,result,runs[building,number,result]]{0,5}]")
+		res, err := jenkins.Get(user, string(tokenJenkins), server, "/api/json?tree=jobs[name,builds[building,displayName,number,result,runs[building,fullDisplayName,number,result]]{0,5}]")
 		if err != nil {
 			http.Error(rw, err.Error(), 500)
 			return
