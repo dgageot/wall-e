@@ -38,8 +38,8 @@
         <div class="check" ng-class="check.state" ng-repeat="check in pr.status.statuses">
           <img class="os" ng-if="check.context.startsWith('mac-')" src="images/mac.png" />
           <img class="os" ng-if="check.context.startsWith('win-')" src="images/win.png" />
-          <img class="os" ng-if="check.context.indexOf('appveyor') >= 0" src="images/circleci.png" />
-          <img class="os" ng-if="check.context.indexOf('circleci') >= 0" src="images/appveyor.png" />
+          <img class="os" ng-if="check.context.indexOf('appveyor') >= 0" src="images/appveyor.png" />
+          <img class="os" ng-if="check.context.indexOf('circleci') >= 0" src="images/circleci.png" />
         </div>
       </div>
     </div>
