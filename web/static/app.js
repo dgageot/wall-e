@@ -13,6 +13,7 @@ lab.controller('BuildWallCtrl', ($scope, $http, $interval, $q) => {
         $q.all(urlCalls).then(results => {
           for (var i = 0; i < results.length; i++) {
             data[i].status = results[i].data;
+            data[i].status.statuses = data[i].status.statuses.sort((l, r) => l.context.localeCompare(r.context));
           }
           $scope.pulls = data;
         });
