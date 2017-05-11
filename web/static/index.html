@@ -12,7 +12,7 @@
       <img class="logo" src="images/mac.png" />
 
       <div class="builds">
-        <div class="build" ng-style="{'height': (200-$index*20) + 'px', 'width': (200-$index*20) + 'px', 'line-height': (200-$index*20) + 'px'}" ng-class="build.result" ng-repeat="build in macMaster.builds">
+        <div class="build" ng-style="{'height': (200-$index*20) + 'px', 'width': (200-$index*20) + 'px', 'line-height': (200-$index*20) + 'px', 'font-size': (48-$index*6) + 'px'}" ng-class="build.result" ng-repeat="build in macMaster.builds">
           {{build.ok.length}}/{{build.runs.length}}
         </div>
       </div>
@@ -22,7 +22,7 @@
       <img class="logo" src="images/win.png" />
 
       <div class="builds">
-        <div class="build" ng-style="{'height': (200-$index*20) + 'px', 'width': (200-$index*20) + 'px', 'line-height': (200-$index*20) + 'px'}" ng-class="build.result" ng-repeat="build in winMaster.builds">
+        <div class="build" ng-style="{'height': (200-$index*20) + 'px', 'width': (200-$index*20) + 'px', 'line-height': (200-$index*20) + 'px', 'font-size': (48-$index*6) + 'px'}" ng-class="build.result" ng-repeat="build in winMaster.builds">
           {{build.ok.length}}/{{build.runs.length}}
         </div>
       </div>

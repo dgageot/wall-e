@@ -39,7 +39,10 @@ var jobPlus = job => {
   job.builds = job.builds.map(build => {
     build.runs = build.runs.filter(run => run.number == build.number);
     build.ok = build.runs.filter(run => run.result == 'SUCCESS');
-    build.ko = build.runs.filter(run => run.result == 'FAILURE' || run.result == 'ABORTED');
+    build.ko = build.runs.filter(run => run.result == 'FAILURE' || run.result == 'ABORTED').map(run => {
+      run.fullDisplayName = run.fullDisplayName.split(" ")[2];
+      return run;
+    });
     return build;
   });
   return job;
