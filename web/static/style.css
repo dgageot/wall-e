@@ -83,9 +83,12 @@ h1 {
 	vertical-align: middle;
 }
 
-h2 {
-	margin: 10px 10px 0 10px;
-	font-size: 1.8em;
+.pr h2 {
+	margin: 10px 70px 0 10px;
+	font-size: 1.6em;
+	font-weight: normal;
+	text-align: left;
+	line-height: 1em;
 }
 
 .master {
@@ -136,7 +139,7 @@ h2 {
 
 .checks {
 	position: absolute;
-	bottom: 10px;
+	bottom: 5px;
 	left: 10px;
 	display: block;
 	width: 100%;
@@ -157,6 +160,18 @@ h2 {
 	box-shadow: -1px 1px 3px 1px rgba(0, 0, 0, 0.2);
 }
 
+.check .letter {
+	position: absolute;
+	color: black;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 0.6em;
+	border-radius: 20px;
+	color: white;
+}
+
 .check.success, .build.SUCCESS {
 	border: rgb(0, 50, 0) solid 1px;
 	background-color: rgb(0, 80, 0);
@@ -172,18 +187,25 @@ h2 {
 	background-color: rgb(235, 130, 0);
 }
 
-.pr h2 {
-	margin-right: 105px;
-	text-align: left;
+.os {
+	top: 6px;
+	left: 7px;
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	opacity: .3;
 }
 
-.os {
-	top: 8px;
-	left: 8px;
-	position: absolute;
-	width: 20px;
-	height: 20px;
-	opacity: .3;
+.os.mac {
+	top: 3px;
+	left: 5px;
+	width: 28px;
+	height: 28px;
+}
+
+.os.win {
+	top: 6px;
+	left: 6px;
 }
 
 .avatar {

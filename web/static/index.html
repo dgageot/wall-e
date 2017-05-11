@@ -35,11 +35,16 @@
       <img ng-src="https://github.com/{{pr.user.login}}.png" class="avatar" />
 
       <div class="checks">
-        <div class="check" ng-class="check.state" ng-repeat="check in pr.status.statuses">
-          <img class="os" ng-if="check.context.startsWith('mac-')" src="images/mac.png" />
-          <img class="os" ng-if="check.context.startsWith('win-')" src="images/win.png" />
+        <div class="check" ng-if="check.context.indexOf('dco') == -1" ng-class="check.state" ng-repeat="check in pr.status.statuses">
+          <img class="os mac" ng-if="check.context.startsWith('mac-')" src="images/mac.png" />
+          <img class="os win" ng-if="check.context.startsWith('win-')" src="images/win.png" />
           <img class="os" ng-if="check.context.indexOf('appveyor') >= 0" src="images/appveyor.png" />
           <img class="os" ng-if="check.context.indexOf('circleci') >= 0" src="images/circleci.png" />
+
+          <div class="letter" ng-if="check.context.indexOf('others') >= 0">O</div>
+          <div class="letter" ng-if="check.context.indexOf('network') >= 0">N</div>
+          <div class="letter" ng-if="check.context.indexOf('compose') >= 0">C</div>
+          <div class="letter" ng-if="check.context.indexOf('winContainers') >= 0">WC</div>
         </div>
       </div>
     </div>
